@@ -12,11 +12,11 @@ SRC_URI = "git://git@github.com/cu-ecen-aeld/assignments-3-and-later-JayPatel17-
 
 PV = "1.0+git${SRCPV}"
 # TODO: set to reference a specific commit hash in your assignment repo
-#SRCREV = "f99b82a5d4cb2a22810104f89d4126f52f4dfaba"\
+# SRCREV = "f99b82a5d4cb2a22810104f89d4126f52f4dfaba"
 
 # jayp: commit id from git repo assignments-3-and-later-JayPatel17-py
 #		tag - assignment-6-part-1 
-SRCREV = "9362fec361e5294252b55ba58d8f5faea1bf3022"
+SRCREV = "e27ac2c3a7023058baae112e9f9599acc16dd0e3"
 
 # This sets your staging directory based on WORKDIR, where WORKDIR is defined at 
 # https://docs.yoctoproject.org/ref-manual/variables.html?highlight=workdir#term-WORKDIR
@@ -24,7 +24,7 @@ SRCREV = "9362fec361e5294252b55ba58d8f5faea1bf3022"
 # in your assignments repo
 
 # jayp: work directory is where my assignment directory
-#		${WORKDIR} is our workspace directory(tmp/work/...)
+#		${WORKDIR} is our workspace directory(tmp/work/)
 #		receipe fetched from git will be under ${WORKDIR}/git
 #		since our source code of aesdsocket is under server, S will be like below
 S = "${WORKDIR}/git/server"
@@ -48,8 +48,7 @@ TARGET_LDFLAGS += "-pthread"
 #		
 inherit update-rc.d
 INITSCRIPT_PACKAGES = "${PN}"
-INITSCRIPT_NAME:${PN} = "myservice"
-INITSCRIPT_PARAMS:${PN} = "defaults"
+INITSCRIPT_NAME:${PN} = "S99aesdsocket"
 
 do_configure () {
 	:
@@ -76,5 +75,6 @@ do_install () {
 	install -m 0755 ${S}/aesdsocket ${D}${bindir}/aesdsocket
 
     install -d ${D}${sysconfdir}/init.d
-    install -m 0755 myservice ${D}${sysconfdir}/init.d/myservice
+    install -m 0755 ${S}/S99aesdsocket ${D}${sysconfdir}/init.d/S99aesdsocket
 }
+
